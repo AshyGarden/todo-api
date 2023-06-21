@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/todos")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
 
     private final TodoService todoService;
@@ -42,7 +43,7 @@ public class TodoController {
             return ResponseEntity.ok().body(responseDTO);
         } catch (RuntimeException e) {
            log.error(e.getMessage());
-            return  ResponseEntity.internalServerError().body("Server down... Caused by: " + e.getMessage());
+            return  ResponseEntity.internalServerError().body(e.getMessage());
         }
 
     }
