@@ -2,6 +2,7 @@ package com.example.todo.todoapi.entity;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,8 @@ public class Todo {
     private String title; //제목
 
     private  boolean done; //일정 완료 여부
+
+    @CreationTimestamp
     private LocalDateTime createDate; //등록시간
 
 }
