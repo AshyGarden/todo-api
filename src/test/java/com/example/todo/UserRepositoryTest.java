@@ -51,8 +51,8 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("이메일 중복체크를 하면 중복값이 false여야 한다.")
-    void emailFlaue() {
+    @DisplayName("이메일 중복체크를 하면 중복값이 false 여야 한다.")
+    void emailFalse() {
         //given
         String email = "adb1234@sabc.com";
 

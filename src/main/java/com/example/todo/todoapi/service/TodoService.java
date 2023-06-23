@@ -29,9 +29,9 @@ public class TodoService {
 
 
     //할일 목록 조회
-    //요청에 따라 데이터 갱신, 삭제 등이 발생한 후
+    //요청에 따라 데이터 갱신, 수정, 삭제 등이 발생한 후
     //최신의 데이터  내용을 클라이언트에게 전달해서 랜더링 하기위해
-    //
+    //목록 리턴 메서드를 서비스에서 처리.
     public TodoListResponseDTO retrieve() { //삭제후 이 함수를 부르기(화면단에서 다시부르는것 보다 간편)
 
         List<Todo> entityList = todoRepository.findAll();

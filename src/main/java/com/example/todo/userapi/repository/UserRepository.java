@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, String> {
+
     //쿼리 매서드
     //이메일로 회원정보 조회
     Optional<User> findByEmail(String email);
@@ -14,4 +15,5 @@ public interface UserRepository extends JpaRepository<User, String> {
     //이메일 중복체크
     //@Query("SELECT count(*) FROM User u WHERE u.email =: ?1")
     boolean existsByEmail(String email);
+
 }
