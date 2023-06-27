@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,5 +62,14 @@ public class UserRepositoryTest {
 
         //then
         assertFalse(flag);
+    }
+
+    @Test
+    @DisplayName("토큰 서명값 생성하기")
+    void makeSecretKey() {
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[64];
+
+
     }
 }

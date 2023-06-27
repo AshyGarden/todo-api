@@ -1,5 +1,6 @@
 package com.example.todo.todoapi.entity;
 
+import com.example.todo.userapi.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,4 +29,7 @@ public class Todo {
     @CreationTimestamp
     private LocalDateTime createDate; //등록시간
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

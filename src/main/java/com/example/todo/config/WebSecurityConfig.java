@@ -1,17 +1,24 @@
 package com.example.todo.config;
 
+import com.example.todo.filter.JwtAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.filter.CorsFilter;
 
 //@Configuration //설정 클래스 용도로 사용하도록 스프링에 등록하는 어노테이션
 @EnableWebSecurity //시큐리티 설정 파일로 사용할 클래스 선언
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    private  final JwtAuthFilter jwtAuthFilter;
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -26,8 +33,18 @@ public class WebSecurityConfig {
                 .cors()
                 .and()
                 .csrf().disable()
-                .httpBasic().disable();
-
+                .httpBasic().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //세션인증을 사용하지 않겠다는 의미
+                .and()
+                .authorizeRequests() //어떤 요텅에서 인증을 할것긴지 설정, 언제 할 것인지 설정
+                .antMatchers("/","/api/auth/**").permitAll()
+                .anyRequest().authenticated();
+        //토큰 인증 필터 연결
+        http.addFilterAfter(
+                jwtAuthFilter,
+                CorsFilter.class // import 주의: 스프링 꺼로
+        );
         return  http.build();
     }
 
